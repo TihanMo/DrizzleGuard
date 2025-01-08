@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
+  const navItems = ["Home", "Shop", "About", "Kontakt"];
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
@@ -9,26 +12,16 @@ export default function Home() {
           <h1 className="text-lg font-bold text-green-600">Splash Protectors</h1>
           <nav>
             <ul className="flex space-x-4">
-              <li>
-                <a href="#" className="hover:text-blue-600 hover:underline transition duration-300">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 hover:underline transition duration-300">
-                  Shop
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 hover:underline transition duration-300">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 hover:underline transition duration-300">
-                  Kontakt
-                </a>
-              </li>
+              {navItems.map((item) => (
+                <li key={item}>
+                  <Link 
+                    href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                    className="hover:text-blue-600 hover:underline transition duration-300"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
@@ -45,6 +38,8 @@ export default function Home() {
                 alt="Splash Protectors"
                 width={500}
                 height={300}
+                priority
+                loading="eager"
                 className="rounded transform transition duration-500 hover:scale-110 max-w-full"
               />
             </div>
@@ -65,7 +60,10 @@ export default function Home() {
               </ul>
               <div className="flex items-center space-x-4">
                 <span className="text-2xl font-bold text-orange-600">CHF 39.99</span>
-                <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 hover:scale-105 shadow-md hover:shadow-lg transition duration-300">
+                <button 
+                  className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 hover:scale-105 shadow-md hover:shadow-lg transition duration-300" 
+                  aria-label="In den Warenkorb"
+                >
                   In den Warenkorb
                 </button>
               </div>
@@ -79,19 +77,27 @@ export default function Home() {
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <p className="text-sm md:text-base">© 2025 Productify. Alle Rechte vorbehalten.</p>
           <nav className="flex space-x-4">
-            <a href="#" className="hover:underline text-gray-400 hover:text-white transition duration-300">
+            <Link 
+              href="/datenschutz"
+              className="hover:underline text-gray-400 hover:text-white transition duration-300"
+            >
               Datenschutz
-            </a>
-            <a href="#" className="hover:underline text-gray-400 hover:text-white transition duration-300">
+            </Link>
+            <Link 
+              href="/agb"
+              className="hover:underline text-gray-400 hover:text-white transition duration-300"
+            >
               AGB
-            </a>
-            <a href="#" className="hover:underline text-gray-400 hover:text-white transition duration-300">
+            </Link>
+            <Link 
+              href="/support"
+              className="hover:underline text-gray-400 hover:text-white transition duration-300"
+            >
               Support
-            </a>
+            </Link>
           </nav>
         </div>
       </footer>
-
     </div>
   );
 }
