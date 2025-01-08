@@ -1,8 +1,33 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
-  const navItems = ["Home", "Shop", "About", "Kontakt"];
+  const [isClient, setIsClient] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const navItems = ["Home", "About", "Kontakt"];
+  const pricePerItem = 39.95;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const handleAddToCart = () => {
+    if (isClient) {
+      const totalAmount = (quantity * pricePerItem).toFixed(2);
+      alert(`Produkt wurde zum Warenkorb hinzugefügt! Gesamtbetrag: CHF ${totalAmount}`);
+    }
+  };
+
+  const incrementQuantity = () => {
+    setQuantity((prevQuantity) => Math.min(prevQuantity + 1, 20));
+  };
+
+  const decrementQuantity = () => {
+    setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 0));
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -59,45 +84,36 @@ export default function Home() {
                 <li>Windwiderstand: Getestet bis 25 km/h</li>
               </ul>
               <div className="flex items-center space-x-4">
-                <span className="text-2xl font-bold text-orange-600">CHF 39.99</span>
+                <span className="text-2xl font-bold text-orange-600">CHF {pricePerItem.toFixed(2)}</span>
                 <button 
                   className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 hover:scale-105 shadow-md hover:shadow-lg transition duration-300" 
                   aria-label="In den Warenkorb"
+                  onClick={handleAddToCart}
                 >
                   In den Warenkorb
                 </button>
+                <div className="flex items-center border rounded">
+                  <button 
+                    onClick={decrementQuantity}
+                    className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-l"
+                    aria-label="Decrease quantity"
+                  >
+                    -
+                  </button>
+                  <span className="px-4 py-1">{quantity}</span>
+                  <button 
+                    onClick={incrementQuantity}
+                    className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-r"
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-4 px-4 mt-8">
-        <div className="container mx-auto flex flex-wrap justify-between items-center">
-          <p className="text-sm md:text-base">© 2025 Productify. Alle Rechte vorbehalten.</p>
-          <nav className="flex space-x-4">
-            <Link 
-              href="/datenschutz"
-              className="hover:underline text-gray-400 hover:text-white transition duration-300"
-            >
-              Datenschutz
-            </Link>
-            <Link 
-              href="/agb"
-              className="hover:underline text-gray-400 hover:text-white transition duration-300"
-            >
-              AGB
-            </Link>
-            <Link 
-              href="/support"
-              className="hover:underline text-gray-400 hover:text-white transition duration-300"
-            >
-              Support
-            </Link>
-          </nav>
-        </div>
-      </footer>
     </div>
   );
 }
