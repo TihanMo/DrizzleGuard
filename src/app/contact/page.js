@@ -8,7 +8,7 @@ export default function ContactPage() {
           <div className="bg-white shadow-lg rounded-lg p-8">
             <h1 className="text-4xl font-bold mb-6 text-center text-green-700">Kontaktieren Sie uns</h1>
 
-            <form action="/api/contact" method="post"> {/* Replace with your API endpoint */}
+            <form>
               <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name:</label>
                 <input type="text" id="name" name="name" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500" required />
