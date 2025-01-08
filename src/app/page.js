@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -31,26 +30,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="bg-white shadow p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-lg font-bold text-green-600">Splash Protectors</h1>
-          <nav>
-            <ul className="flex space-x-4">
-              {navItems.map((item) => (
-                <li key={item}>
-                  <Link 
-                    href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className="hover:text-blue-600 hover:underline transition duration-300"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="flex-grow bg-gray-100">
